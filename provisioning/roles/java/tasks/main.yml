@@ -1,0 +1,26 @@
+---
+- name: Add Java Oracle repository to source list
+  apt_repository: repo='ppa:webupd8team/java' update_cache=yes 
+  
+- name: Accept JavaOracle License
+  debconf: 
+    name='oracle-java8-installer' 
+    question='shared/accepted-oracle-license-v1-1' 
+    value='true' 
+    vtype='select'
+  
+#- name: Accept JavaOracle License 2
+#  debconf: 
+#    name='oracle-java8-installer' 
+#    question='shared/accepted-oracle-license-v1-1' 
+#    value='true' 
+#    vtype='seen'
+  
+- name: Install Java Oracle
+  apt: name=oracle-java8-installer state=latest
+  
+- name: Install additional packages
+  apt: name={{ item }}
+  with_items:
+    - maven
+    - ant

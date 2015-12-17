@@ -1,0 +1,17 @@
+---
+#JENKINS REPOSITORY KEY
+- name: Add Jenkins repository key
+  apt_key: 
+    url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key 
+    state=present
+    
+- name: Installing Jenkins repository
+  apt_repository: 
+    repo='deb http://pkg.jenkins-ci.org/debian binary/' 
+    state=present
+  
+- name: Installing Jenkins software
+  apt: 
+    name=jenkins 
+    state=latest
+  
